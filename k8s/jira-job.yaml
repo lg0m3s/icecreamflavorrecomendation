@@ -1,25 +1,23 @@
 apiVersion: batch/v1
 kind: Job
 metadata:
-  generateName: update-jira-ticket-  
+  generateName: update-jira-ticket-
   namespace: argocd
   annotations:
-    argocd.argoproj.io/hook: PostSync  
-    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation  # Removes old job before creating a new one
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation
 spec:
-  ttlSecondsAfterFinished: 300  # Deletes the job after 5 minutes
+  ttlSecondsAfterFinished: 300
   template:
     spec:
       restartPolicy: Never
+      serviceAccountName: argocd-job-sa  # ✅ Correct Service Account
       containers:
       - name: update-jira
-        image: bitnami/kubectl:latest
+        image: bitnami/kubectl:1.28.0  # ✅ This version includes kubectl & curl
         command: ["/bin/sh", "-c"]
         args:
         - |
-          # Install required tools (lightweight)
-          apk add --no-cache curl jq bash
-
           echo "🔍 Fetching deployed commit SHA from ArgoCD..."
           COMMIT_SHA=$(kubectl get application icecreamflavorrecommendation-app -n argocd -o jsonpath='{.status.sync.revision}')
           echo "✅ Commit SHA: $COMMIT_SHA"
@@ -43,4 +41,6 @@ spec:
             exit 0
           fi
 
+          echo "🚀 Updating Jira ticket: $JIRA_TICKET"
+        
           echo "✅ Jira update complete!"

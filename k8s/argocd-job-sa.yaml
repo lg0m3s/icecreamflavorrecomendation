@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: argocd-job-sa
+  namespace: argocd
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: argocd-job-role
+  namespace: default
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "list"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: argocd-job-rolebinding
+  namespace: default
+subjects:
+- kind: ServiceAccount
+  name: argocd-job-sa
+  namespace: argocd
+roleRef:
+  kind: Role
+  name: argocd-job-role
+  apiGroup: rbac.authorization.k8s.io
