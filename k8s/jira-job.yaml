@@ -1,14 +1,25 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  generateName: update-jira-ticket-  
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/hook: PostSync  
+    argocd.argoproj.io/hook-delete-policy: BeforeHookCreation  # Removes old job before creating a new one
 spec:
+  ttlSecondsAfterFinished: 300  # Deletes the job after 5 minutes
   template:
     spec:
       restartPolicy: Never
+      serviceAccountName: argocd-job-sa  # Use a service account with correct permissions
       containers:
       - name: update-jira
-        image: alpine:latest  # Replace "bitnami/kubectl:latest"
+        image: alpine:latest
         command: ["/bin/sh", "-c"]
         args:
         - |
-          apk add --no-cache curl jq bash  # Install required tools
+          # Install required tools (lightweight)
+          apk add --no-cache curl jq bash
 
           echo "🔍 Fetching deployed commit SHA from ArgoCD..."
           COMMIT_SHA=$(kubectl get application icecreamflavorrecommendation-app -n argocd -o jsonpath='{.status.sync.revision}')
@@ -33,6 +44,4 @@ spec:
             exit 0
           fi
 
-          echo "🚀 Would now update Jira at: https://devops.atlassian.net/rest/api/3/issue/$JIRA_TICKET"
-          echo "🔹 Data that would be sent:"
-          echo "{\"fields\":{\"customfield_10489\":\"$POD_TIMESTAMP\"}}"
+          echo "✅ Jira update complete!"

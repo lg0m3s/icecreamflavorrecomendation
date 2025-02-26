@@ -9,6 +9,8 @@ spec:
     repoURL: https://github.com/lg0m3s/icecreamflavorrecomendation.git
     targetRevision: main
     path: k8s  # The directory containing the K8s manifests, including jira-update
+    directory:
+      recurse: true
   destination:
     server: https://kubernetes.default.svc
     namespace: default 
