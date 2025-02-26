@@ -14,7 +14,7 @@ spec:
       serviceAccountName: argocd-job-sa  # ✅ Correct Service Account
       containers:
       - name: update-jira
-        image: bitnami/kubectl:1.28
+        image: bitnami/kubectl:latest
         command: ["/bin/sh", "-c"]
         args:
         - |
@@ -28,7 +28,7 @@ spec:
           echo "✅ Commit SHA: $COMMIT_SHA"
 
           echo "🔍 Fetching commit message from GitHub..."
-          COMMIT_MESSAGE=$(curl -s "https://api.github.com/repos/lg0m3s/icecreamflavorrecomendation/commits/$COMMIT_SHA" | jq -r '.commit.message')
+          COMMIT_MESSAGE=$(kubectl curl -s "https://api.github.com/repos/lg0m3s/icecreamflavorrecomendation/commits/$COMMIT_SHA" | jq -r '.commit.message')
           echo "✅ Commit Message: $COMMIT_MESSAGE"
 
           echo "🔍 Extracting Jira ticket from commit message..."
