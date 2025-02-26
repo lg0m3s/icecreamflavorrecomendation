@@ -1,16 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: html-website
+  name: icecreamflavorrecommendation-app
+  namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: html-website
+      app: icecreamflavorrecommendation-app
   template:
     metadata:
       labels:
-        app: html-website
+        app: icecreamflavorrecommendation-app
     spec:
       containers:
       - name: nginx
