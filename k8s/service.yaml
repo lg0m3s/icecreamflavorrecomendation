@@ -7,6 +7,6 @@ spec:
   selector:
     app: icecreamflavorrecommendation-app
   ports:
-  - port: 3000
-    targetPort: 3000
-  type: NodePort
+  - port: 80
+    targetPort: 80
+  type: ClusterIP
