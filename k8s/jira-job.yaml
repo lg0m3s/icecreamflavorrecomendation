@@ -11,18 +11,25 @@ spec:
   template:
     spec:
       restartPolicy: Never
-      serviceAccountName: argocd-job-sa  # ✅ ServiceAccount with correct permissions
+      serviceAccountName: argocd-job-sa  # ✅ Correct Service Account
       containers:
       - name: update-jira
-        image: nginx:latest  # ✅ Using an NGINX-based image
+        image: nginx:latest  # ✅ Still using an NGINX-based image
         command: ["/bin/sh", "-c"]
         args:
         - |
-          echo "Installing curl..."
-          rm -rf /var/lib/apt/lists/*
-          apt-get update && apt-get install -y curl
-          echo "✅ curl installed"
+          echo "Installing required tools..."
+          apt-get update && apt-get install -y curl jq
+          
+          echo "Installing kubectl..."
+          curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/arm64/kubectl"
+          chmod +x kubectl
+          mv kubectl /usr/local/bin/
+
+          echo "✅ Tools installed: curl, jq, kubectl"
           curl --version
+          kubectl version --client
+          jq --version
 
           echo "🔍 Fetching deployed commit SHA from ArgoCD..."
           COMMIT_SHA=$(kubectl get application icecreamflavorrecommendation-app -n argocd -o jsonpath='{.status.sync.revision}')
@@ -47,6 +54,4 @@ spec:
             exit 0
           fi
 
-          echo "🚀 Updating Jira ticket: $JIRA_TICKET"
-        
           echo "✅ Jira update complete!"
