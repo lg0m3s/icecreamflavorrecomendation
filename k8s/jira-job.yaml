@@ -13,7 +13,7 @@ spec:
       restartPolicy: Never
       containers:
       - name: update-jira
-        image: alpine:latest
+        image: bitnami/kubectl:latest
         command: ["/bin/sh", "-c"]
         args:
         - |
