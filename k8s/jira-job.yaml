@@ -14,7 +14,7 @@ spec:
       serviceAccountName: argocd-job-sa  # ✅ Correct Service Account
       containers:
       - name: update-jira
-        image: bitnami/kubectl:1.28.0  # ✅ This version includes kubectl & curl
+        image: bitnami/kubectl:latest
         command: ["/bin/sh", "-c"]
         args:
         - |
