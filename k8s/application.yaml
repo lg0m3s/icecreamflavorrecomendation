@@ -6,12 +6,12 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/lg0m3s/icecreamflavorrecomendation.git # Replace with your repo URL
-    targetRevision: HEAD
-    path: k8s  # The directory containing your K8s manifests
+    repoURL: https://github.com/lg0m3s/icecreamflavorrecomendation.git
+    targetRevision: main
+    path: k8s  # The directory containing the K8s manifests, including jira-update
   destination:
     server: https://kubernetes.default.svc
-    namespace: default  # Namespace where your app will be deployed
+    namespace: default 
   syncPolicy:
     automated:
       prune: true
