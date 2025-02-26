@@ -1,20 +1,15 @@
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: update-jira-ticket
-  namespace: argocd
-  annotations:
-    argocd.argoproj.io/hook: PostSync  # Runs after a successful deployment
 spec:
   template:
     spec:
       restartPolicy: Never
       containers:
       - name: update-jira
-        image: bitnami/kubectl:latest  # Lightweight image with curl + jq
+        image: alpine:latest  # Replace "bitnami/kubectl:latest"
         command: ["/bin/sh", "-c"]
         args:
         - |
+          apk add --no-cache curl jq bash  # Install required tools
+
           echo "🔍 Fetching deployed commit SHA from ArgoCD..."
           COMMIT_SHA=$(kubectl get application icecreamflavorrecommendation-app -n argocd -o jsonpath='{.status.sync.revision}')
           echo "✅ Commit SHA: $COMMIT_SHA"
@@ -24,14 +19,15 @@ spec:
           echo "✅ Commit Message: $COMMIT_MESSAGE"
 
           echo "🔍 Extracting Jira ticket from commit message..."
-          JIRA_TICKET=$(echo "$COMMIT_MESSAGE" | grep -oE '[A-Z]+-[0-9]+')
+          JIRA_TICKET=$(echo "$COMMIT_MESSAGE" | grep -oE '(^|[^A-Z])([0-9]+|DPLY-[0-9]+)')
+          JIRA_TICKET=$(echo "$JIRA_TICKET" | sed 's/^[^A-Za-z0-9]*//')
+
           echo "✅ Extracted Jira Ticket: $JIRA_TICKET"
 
           echo "🔍 Fetching latest deployed pod's creationTimestamp..."
           POD_TIMESTAMP=$(kubectl get pods -n default -l app=icecreamflavorrecommendation-app --sort-by=.metadata.creationTimestamp -o jsonpath='{.items[-1].metadata.creationTimestamp}')
           echo "✅ Pod Creation Timestamp: $POD_TIMESTAMP"
 
-          # Exit if no Jira ticket is found to prevent unnecessary API calls
           if [ -z "$JIRA_TICKET" ]; then
             echo "⚠️ No Jira ticket found in commit message. Skipping Jira update."
             exit 0
@@ -40,7 +36,3 @@ spec:
           echo "🚀 Would now update Jira at: https://devops.atlassian.net/rest/api/3/issue/$JIRA_TICKET"
           echo "🔹 Data that would be sent:"
           echo "{\"fields\":{\"customfield_10489\":\"$POD_TIMESTAMP\"}}"
-
-          echo "✅ Debugging complete. Comment out 'exit 0' below to enable Jira updates."
-
-          exit 0  # 🚀 Comment this line out to actually update Jira!
