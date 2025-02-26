@@ -3,7 +3,7 @@ spec:
     spec:
       restartPolicy: Never
       containers:
-      - generateName: update-jira-
+      - generateName: update-jira-t-
         image: alpine:latest  # Replace "bitnami/kubectl:latest"
         command: ["/bin/sh", "-c"]
         args:
