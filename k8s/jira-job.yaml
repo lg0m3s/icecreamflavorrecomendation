@@ -11,24 +11,25 @@ spec:
   template:
     spec:
       restartPolicy: Never
-      serviceAccountName: argocd-job-sa  # ✅ Correct Service Account
+      serviceAccountName: argocd-job-sa  # ✅ ServiceAccount with correct permissions
       containers:
       - name: update-jira
-        image: bitnami/kubectl:latest
+        image: nginx:latest  # ✅ Using an NGINX-based image
         command: ["/bin/sh", "-c"]
         args:
         - |
           echo "Installing curl..."
-          apt update && apt install -y curl || apk add --no-cache curl
+          rm -rf /var/lib/apt/lists/*
+          apt-get update && apt-get install -y curl
           echo "✅ curl installed"
           curl --version
-          # Continue with the rest of the script
+
           echo "🔍 Fetching deployed commit SHA from ArgoCD..."
           COMMIT_SHA=$(kubectl get application icecreamflavorrecommendation-app -n argocd -o jsonpath='{.status.sync.revision}')
           echo "✅ Commit SHA: $COMMIT_SHA"
 
           echo "🔍 Fetching commit message from GitHub..."
-          COMMIT_MESSAGE=$(kubectl curl -s "https://api.github.com/repos/lg0m3s/icecreamflavorrecomendation/commits/$COMMIT_SHA" | jq -r '.commit.message')
+          COMMIT_MESSAGE=$(curl -s "https://api.github.com/repos/lg0m3s/icecreamflavorrecomendation/commits/$COMMIT_SHA" | jq -r '.commit.message')
           echo "✅ Commit Message: $COMMIT_MESSAGE"
 
           echo "🔍 Extracting Jira ticket from commit message..."
