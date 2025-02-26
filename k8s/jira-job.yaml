@@ -14,7 +14,7 @@ spec:
       serviceAccountName: argocd-job-sa  # ✅ Correct Service Account
       containers:
       - name: update-jira
-        image: lachlanevenson/k8s-kubectl:v1.28.0
+        image: bitnami/kubectl:1.28
         command: ["/bin/sh", "-c"]
         args:
         - |
