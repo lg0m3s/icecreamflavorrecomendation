@@ -18,6 +18,11 @@ spec:
         command: ["/bin/sh", "-c"]
         args:
         - |
+          echo "Installing curl..."
+          apt update && apt install -y curl || apk add --no-cache curl
+          echo "✅ curl installed"
+          curl --version
+          # Continue with the rest of the script
           echo "🔍 Fetching deployed commit SHA from ArgoCD..."
           COMMIT_SHA=$(kubectl get application icecreamflavorrecommendation-app -n argocd -o jsonpath='{.status.sync.revision}')
           echo "✅ Commit SHA: $COMMIT_SHA"
