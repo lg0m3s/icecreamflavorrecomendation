@@ -10,6 +10,8 @@ spec:
       app: icecreamflavorrecommendation-app
   template:
     metadata:
+      annotations:
+          checksum/configmap: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
       labels:
         app: icecreamflavorrecommendation-app
     spec:
