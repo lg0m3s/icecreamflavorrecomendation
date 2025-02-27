@@ -8,7 +8,7 @@ spec:
   source:
     repoURL: https://github.com/lg0m3s/icecreamflavorrecomendation.git
     targetRevision: main
-    path: k8s  # The directory containing the K8s manifests, including jira-update
+    path: k8s
     directory:
       recurse: true
   destination:
@@ -18,3 +18,6 @@ spec:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ApplyOutOfSyncOnly=true
