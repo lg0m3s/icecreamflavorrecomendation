@@ -57,7 +57,7 @@ spec:
           echo "🚀 Updating Jira ticket: $JIRA_TICKET"
           JIRA_API_URL="https://celonis.atlassian.net/rest/api/3/issue/DPLY-9803"
 
-          curl -X PUT -u "l.gomes@celonis.com:ATATT3xFfGF0Z0ELZ6_hSPVOrRW4-_mGJkFLjPzGcaKDhwz1T1l9Wv3yUp2oaLh9ZEBuHhiNOmrbrln032496HVJaXryXkUYdhA3clK_zOe7NuYKUpcDMtX8LBBhXRCZlO8_O8zoxQ81Hcn8_9rnWXRcv8tLPvHlokKmaYsSffKk6ny1SZANE3Y=9A97E240" -H "Content-Type: application/json" \
+          curl -X PUT -u "l.gomes@celonis.com:$JIRA_API_TOKEN" -H "Content-Type: application/json" \
           --data "{\"fields\":{\"customfield_10489\":\"2025-02-26T21:42:28.000+0000\"}}" $JIRA_API_URL
 
           echo "✅ Jira update complete!"
