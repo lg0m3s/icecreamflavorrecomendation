@@ -58,7 +58,7 @@ spec:
           JIRA_API_URL="https://celonis.atlassian.net/rest/api/3/issue/DPLY-9803"
 
           curl -X PUT -u "$JIRA_USER:$JIRA_API_TOKEN" -H "Content-Type: application/json" \
-          --data "{\"fields\":{\"customfield_10489\":\"$POD_TIMESTAMP\"}}" $JIRA_API_URL
+          --data "{\"fields\":{\"description\":\"$POD_TIMESTAMP\"}}" $JIRA_API_URL
 
           echo "✅ Jira update complete!"
 env:
