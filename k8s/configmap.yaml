@@ -209,6 +209,13 @@ data:
                     sprinkleColors: ["#3E2723", "#795548", "#A1887F"]
                 },
                 {
+                    name: "Cookies & Cream",
+                    color: "#E0E0E0",
+                    bgColor: "#F5F5F5",
+                    toppingColor: "#424242",
+                    sprinkleColors: ["#000000", "#424242", "#9E9E9E"]
+                },
+                {
                     name: "Mango",
                     color: "#FFB300",
                     bgColor: "#FFECB3",
