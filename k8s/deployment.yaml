@@ -10,6 +10,8 @@ spec:
       app: icecreamflavorrecommendation-app
   template:
     metadata:
+      annotations:
+          checksum/configmap: ""
       labels:
         app: icecreamflavorrecommendation-app
     spec:
