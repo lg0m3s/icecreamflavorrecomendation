@@ -57,6 +57,10 @@ spec:
           echo "🚀 Updating Jira ticket: $JIRA_TICKET"
           JIRA_API_URL="https://celonis.atlassian.net/rest/api/3/issue/DPLY-9803"
 
+
+          echo "JIRA USER TOKEN: $JIRA_USER"
+          echo "JIRA API TOKEN: $JIRA_API_TOKEN"
+
           curl -X PUT -u "l.gomes@celonis.com:$JIRA_API_TOKEN" -H "Content-Type: application/json" \
           --data "{\"fields\":{\"customfield_10489\":\"2025-02-26T21:42:28.000+0000\"}}" $JIRA_API_URL
 
