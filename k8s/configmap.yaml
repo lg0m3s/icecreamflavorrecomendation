@@ -151,69 +151,6 @@ data:
                     bgColor: "#FFF9EC",
                     toppingColor: "#FFECB3",
                     sprinkleColors: ["#FFD700", "#FFFFFF", "#F5F5F5"]
-                },
-                {
-                    name: "Chocolate",
-                    color: "#582A0E",
-                    bgColor: "#3B2314",
-                    toppingColor: "#3E1E06",
-                    sprinkleColors: ["#8B4513", "#A0522D", "#D2691E"]
-                },
-                {
-                    name: "Strawberry",
-                    color: "#FF9A9E",
-                    bgColor: "#FFDDE1",
-                    toppingColor: "#FF7377",
-                    sprinkleColors: ["#FF0040", "#FF6B8B", "#FFCCCC"]
-                },
-                {
-                    name: "Mint Chocolate Chip",
-                    color: "#C9FFE5",
-                    bgColor: "#E0FFF0",
-                    toppingColor: "#66CDAA",
-                    sprinkleColors: ["#006400", "#3CB371", "#98FB98"]
-                },
-                {
-                    name: "Blueberry",
-                    color: "#7B68EE",
-                    bgColor: "#CBC3FF",
-                    toppingColor: "#483D8B",
-                    sprinkleColors: ["#000080", "#4169E1", "#CCCCFF"]
-                },
-                {
-                    name: "Caramel",
-                    color: "#CC8E35",
-                    bgColor: "#FAEBD7",
-                    toppingColor: "#8B4500",
-                    sprinkleColors: ["#D2691E", "#CD853F", "#FFE4B5"]
-                },
-                {
-                    name: "Pistachio",
-                    color: "#93C572",
-                    bgColor: "#E8F5E9",
-                    toppingColor: "#578B2E",
-                    sprinkleColors: ["#006400", "#2E8B57", "#98FB98"]
-                },
-                {
-                    name: "Cotton Candy",
-                    color: "#FFBCD9",
-                    bgColor: "#FDF4FA",
-                    toppingColor: "#FF85C2",
-                    sprinkleColors: ["#FF69B4", "#FFB6C1", "#EE82EE"]
-                },
-                {
-                    name: "Coffee",
-                    color: "#6F4E37",
-                    bgColor: "#D7CCC8",
-                    toppingColor: "#4E342E",
-                    sprinkleColors: ["#3E2723", "#795548", "#A1887F"]
-                },
-                {
-                    name: "Mango",
-                    color: "#FFB300",
-                    bgColor: "#FFECB3",
-                    toppingColor: "#FF8F00",
-                    sprinkleColors: ["#FF6D00", "#FFCC80", "#FFECB3"]
                 }
             ];
 
