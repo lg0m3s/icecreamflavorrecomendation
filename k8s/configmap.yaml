@@ -221,13 +221,6 @@ data:
                     bgColor: "#FFECB3",
                     toppingColor: "#FF8F00",
                     sprinkleColors: ["#FF6D00", "#FFCC80", "#FFECB3"]
-                },
-                {
-                    name: "Bubblegum",
-                    color: "#F8BBD0",
-                    bgColor: "#FCE4EC",
-                    toppingColor: "#F06292",
-                    sprinkleColors: ["#880E4F", "#EC407A", "#F48FB1"]
                 }
             ];
 
