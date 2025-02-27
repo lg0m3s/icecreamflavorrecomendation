@@ -16,6 +16,17 @@ spec:
       - name: update-jira
         image: nginx:latest  # ✅ Still using an NGINX-based image
         command: ["/bin/sh", "-c"]
+        env:
+        - name: JIRA_USER
+          valueFrom:
+            secretKeyRef:
+              name: jira-credentials
+              key: JIRA_USER
+        - name: JIRA_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: jira-credentials
+              key: JIRA_API_TOKEN
         args:
         - |
           echo "Installing required tools..."
@@ -65,14 +76,3 @@ spec:
           --data "{\"fields\":{\"customfield_10489\":\"2025-02-26T21:42:28.000+0000\"}}" $JIRA_API_URL
 
           echo "✅ Jira update complete!"
-env:
-        - name: JIRA_USER
-          valueFrom:
-            secretKeyRef:
-              name: jira-credentials
-              key: JIRA_USER
-        - name: JIRA_API_TOKEN
-          valueFrom:
-            secretKeyRef:
-              name: jira-credentials
-              key: JIRA_API_TOKEN
