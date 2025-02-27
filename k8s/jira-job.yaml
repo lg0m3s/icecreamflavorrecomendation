@@ -61,3 +61,14 @@ spec:
           --data "{\"fields\":{\"customfield_10489\":\"$POD_TIMESTAMP\"}}" $JIRA_API_URL
 
           echo "✅ Jira update complete!"
+env:
+        - name: JIRA_USER
+          valueFrom:
+            secretKeyRef:
+              name: jira-credentials
+              key: JIRA_USER
+        - name: JIRA_API_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: jira-credentials
+              key: JIRA_API_TOKEN
