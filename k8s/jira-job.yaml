@@ -51,8 +51,7 @@ spec:
           echo "✅ Commit Message: $COMMIT_MESSAGE"
 
           echo "🔍 Extracting Jira ticket from commit message..."
-          JIRA_TICKET=$(echo "$COMMIT_MESSAGE" | grep -oE '(^|[^A-Z])([0-9]+|DPLY-[0-9]+)')
-          JIRA_TICKET=$(echo "$JIRA_TICKET" | sed 's/^[^A-Za-z0-9]*//')
+          JIRA_TICKET=$(echo "$COMMIT_MESSAGE" | grep -oP '(?<="dply_ticket": ")[^"]+')
 
           echo "✅ Extracted Jira Ticket: $JIRA_TICKET"
 
@@ -72,7 +71,7 @@ spec:
           echo "JIRA USER TOKEN: $JIRA_USER"
           echo "JIRA API TOKEN: $JIRA_API_TOKEN"
 
-          curl -X PUT -u "l.gomes@celonis.com:$JIRA_API_TOKEN" -H "Content-Type: application/json" \
-          --data "{\"fields\":{\"customfield_10489\":\"2025-02-26T21:42:28.000+0000\"}}" $JIRA_API_URL
+          curl -X PUT -u "$JIRA_USER:$JIRA_API_TOKEN" -H "Content-Type: application/json" \
+          --data "{\"fields\":{\"customfield_10489\":\"$POD_TIMESTAMP\"}}" $JIRA_API_URL
 
           echo "✅ Jira update complete!"
