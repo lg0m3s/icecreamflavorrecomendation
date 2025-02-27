@@ -10,12 +10,15 @@ spec:
       app: icecreamflavorrecommendation-app
   template:
     metadata:
+      annotations:
+          checksum/configmap: ""
       labels:
         app: icecreamflavorrecommendation-app
     spec:
       containers:
       - name: nginx
         image: nginx:alpine
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
         volumeMounts:
